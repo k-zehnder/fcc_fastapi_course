@@ -20,6 +20,8 @@ class BlackWhiteThresholdAnalyzer(ImageValidator):
     
 if __name__ == "__main__":
     from froala_flask_example_full import *
+    import requests
+
     filePath = "dog1.png"
     img = cv2.imread(filePath)
     print(img)
@@ -34,10 +36,21 @@ if __name__ == "__main__":
     'validation': validation
     }
     
-    """    
-    files = {'media': open('/home/batman/Desktop/py/automate_boring_stuff/froala/public/32cb3ffbf0e4a9a8c24e2472b9bf46440b20dc0f.png', 'rb')}
-    print(requests.post(test_url, files=files))
-    """
+
+    # assign server url and image path to variables
+    url = "http://127.0.0.1:8000/analyze"
+    filename = "/home/batman/Desktop/py/fcc_fastapi_course/dog1.png"
+    # image_test = cv2.imread(filename)
     
-    response = Image.upload(FlaskAdapter(request), '/public/', options)
-    print(response)
+    r = requests.post(url, files={"file": ("filename", open(filename, "rb"), "image/jpeg")})
+
+    
+    # files = {'media': open(image_test, 'rb')}
+    # print(requests.post(url, files=files))
+
+    # get response from server after posting image
+    # r = requests.post(url, files={"file": ("filename", open(filename, "rb"), "image/jpeg")})
+    # print(r)
+    
+    # response = Image.upload(FlaskAdapter(request), '/public/', options)
+    # print(response)
