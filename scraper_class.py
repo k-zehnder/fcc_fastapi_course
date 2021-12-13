@@ -31,17 +31,13 @@ class Scraper:
         self.op = webdriver.ChromeOptions()
         self.op.add_argument("--headless") if headless == True else None
         self.wd = webdriver.Chrome(service=self.ser, options=self.op)
-        self.images_folder = "/home/batman/Desktop/explore_ray/images"
-        self.images_arrays = []
-        
     
-    def load_images_from_folder(self):
+    def load_images_from_folder(self, folder):
         images = []
-        for filename in os.listdir(self.images_folder):
-            img = cv2.imread(os.path.join(self.images_folder,filename))
+        for filename in os.listdir(folder):
+            img = cv2.imread(os.path.join(folder, filename))
             if img is not None:
                 images.append(img)
-                self.images_arrays.append(img)
         return images
     
     def get_images(self):
