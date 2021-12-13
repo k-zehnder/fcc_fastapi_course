@@ -19,5 +19,6 @@ if __name__ == "__main__":
     # post to route the filename not the actual imaage
     filename = "/home/batman/Desktop/py/fcc_fastapi_course/dog1.png"
     
+    # send POST request to server from client
     r = requests.post(api_endpoint, files={"file": ("filename", open(filename, "rb"), "image/jpeg")})
     print(f'response from server: {r}')
