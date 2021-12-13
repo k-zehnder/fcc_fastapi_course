@@ -11,12 +11,28 @@ import logging
 
 app = FastAPI()
 
+"""
+
+import wand.image
+
+def validation(filePath, mimetype):
+  with wand.image.Image(filename=filePath) as img:
+    if img.width != img.height:
+      return False
+    return True
+
+options = {
+  'validation': validation
+}
+response = Image.upload(CustomAdapter(request), '/public/', options)
+
+"""
 @app.get("/")
 async def root():
     return {"message" : "hello world"}
 
-@app.post("/predict/")
-async def predict(file: bytes = File(...)):
+@app.post("/validate/")
+async def validate(file: UploadFile = File(...)):    
     if file.content_type.startswith('image/') is False:
         raise HTTPException(status_code=400, detail=f'File \'{file.filename}\' is not an image.')    
 
@@ -35,9 +51,4 @@ async def predict(file: bytes = File(...)):
         logging.exception(error)
         e = sys.exc_info()[1]
         raise HTTPException(status_code=500, detail=str(e))
-    
-@app.post("/analyze")
-async def analyse(file: bytes = File(...)):
-    image = Image.open(io.BytesIO(file)).convert("RGB")
-    # # stats = process_image(image)
-    return {"type" : type(image)}
+
