@@ -80,4 +80,23 @@ class Ray_Scraper:
                 # move the result startpoint further down
                 results_start = len(thumbnail_results)
 
-        return image_urls
+        return list(image_urls)
+    
+if __name__ == "__main__":
+       # collect image data *without* ray
+    start = time.perf_counter()
+    scraper = Ray_Scraper.remote("/home/batman/Desktop/explore_ray/chromedriver", headless=True)
+    output_folder = "/home/batman/Desktop/py/fcc_fastapi_course/test_download"
+    
+    # scrape urls into a list and return them
+    palettes = []
+    scraped_urls = palettes.append(scraper.fetch_image_urls.remote("cat", 5, 1))
+    scraped_urls = ray.get(palettes)
+    print(f'scraped urls: {scraped_urls}')
+
+    # for scraped_url in ray.get(scraped_urls):
+    #     ray.get(scraper.download.remote(scraped_url, output_folder, verbose=False))
+    
+    default_duration = time.perf_counter() - start
+    print(f'RAY: {default_duration * 1000:.1f}ms')
+    print(f'scraped urls: {scraped_urls}')
