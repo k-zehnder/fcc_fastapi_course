@@ -1,5 +1,5 @@
-from ray_scraper_class import Ray_Scraper
-from scraper_class import Scraper
+from scraper_classes.ray_scraper_class import Ray_Scraper
+from scraper_classes.scraper_class import Scraper
 import time
 import ray
 import pandas as pd

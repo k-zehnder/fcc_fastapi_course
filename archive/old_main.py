@@ -1,7 +1,7 @@
 # from ray_classes import *
 # from non_ray_classes import *
-from ray_scraper_class import Ray_Scraper
-from scraper_class import Scraper
+from scraper_classes.ray_scraper_class import Ray_Scraper
+from scraper_classes.scraper_class import Scraper
 import time
 import pandas as pd
 import ray

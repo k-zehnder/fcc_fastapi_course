@@ -59,7 +59,8 @@ async def validate(file: UploadFile = File(...)):
       # logging.info(f"Predicted Class: {predicted_class}")
       return {
           "filename": file.filename, 
-          "contentype": file.content_type
+          "contentype": file.content_type,
+          "valid" : isValidImage(image)
       }
   except Exception as error:
       logging.exception(error)
